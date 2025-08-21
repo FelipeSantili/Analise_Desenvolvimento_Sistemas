@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
   <meta charset="UTF-8" />
   <title>Robô vai para casa</title>
 
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-        crossorigin="anonymous" referrerpolicy="no-referrer"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <link rel="stylesheet" href="styles.css" />
   <script src="script.js"></script>
 </head>
+
 <body onload="criaTabela();posicionaImagens()">
 
   <div class="layout">
@@ -44,7 +45,7 @@
           <i class="fa-solid fa-play"></i> Executar Manual
         </button>
         <button class="btn btn-outline" onclick="autoMover()">
-          <i class="fa-solid fa-wand-magic-sparkles"></i> Automático (Guloso)
+          <i class="fa-solid fa-wand-magic-sparkles"></i> Automático
         </button>
         <button class="btn btn-outline" onclick="autoMoverBFS()">
           <i class="fa-solid fa-magnifying-glass-location"></i> Automático (BFS)
@@ -57,7 +58,12 @@
       <section class="group">
         <h3>Sequência</h3>
         <table id="tabelaPassos">
-          <thead><tr><th>#</th><th>Movimento</th></tr></thead>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Movimento</th>
+            </tr>
+          </thead>
           <tbody></tbody>
         </table>
       </section>
@@ -71,4 +77,5 @@
     </main>
   </div>
 </body>
+
 </html>
