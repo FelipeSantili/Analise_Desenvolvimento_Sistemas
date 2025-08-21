@@ -1,19 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <title>Robô vai para casa</title>
-    <link rel="stylesheet" href="estilos.css">
-    <script src="script.js"></script>
+  <meta charset="UTF-8" />
+  <title>Robô vai para casa</title>
+
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js"></script>
 </head>
 <body onload="criaTabela();posicionaImagens()">
- <div id="conteiner">
 
- </div>
-<button id=0 onclick="registrarPassos(this)">Direita</button>
- <button id=1 onclick="registrarPassos(this)">Esquerda</button>
- <button id=2 onclick="registrarPassos(this)">Acima</button>
- <button id=3 onclick="registrarPassos(this)">Abaixo</button>
-<label id="passos"></label>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <i class="fa-solid fa-robot"></i>
+        <span>Robo Home</span>
+      </div>
+
+      <section class="group">
+        <h3>Movimentos</h3>
+        <div class="btn-grid">
+          <button class="btn btn-secondary" id="2" onclick="registrarPassos(this)">
+            <i class="fa-solid fa-arrow-up"></i> Acima
+          </button>
+          <button class="btn btn-secondary" id="3" onclick="registrarPassos(this)">
+            <i class="fa-solid fa-arrow-down"></i> Abaixo
+          </button>
+          <button class="btn btn-secondary" id="1" onclick="registrarPassos(this)">
+            <i class="fa-solid fa-arrow-left"></i> Esquerda
+          </button>
+          <button class="btn btn-secondary" id="0" onclick="registrarPassos(this)">
+            <i class="fa-solid fa-arrow-right"></i> Direita
+          </button>
+        </div>
+      </section>
+
+      <section class="group">
+        <h3>Ação</h3>
+        <button class="btn btn-primary" onclick="iniciar()">
+          <i class="fa-solid fa-play"></i> Executar Manual
+        </button>
+        <button class="btn btn-outline" onclick="autoMover()">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> Automático (Guloso)
+        </button>
+        <button class="btn btn-outline" onclick="autoMoverBFS()">
+          <i class="fa-solid fa-magnifying-glass-location"></i> Automático (BFS)
+        </button>
+        <button class="btn btn-danger" onclick="resetGame()">
+          <i class="fa-solid fa-rotate-right"></i> Reiniciar
+        </button>
+      </section>
+
+      <section class="group">
+        <h3>Sequência</h3>
+        <table id="tabelaPassos">
+          <thead><tr><th>#</th><th>Movimento</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </section>
+    </aside>
+
+    <main>
+      <header class="header">
+        <h1><i class="fa-solid fa-chess-board"></i> Tabuleiro</h1>
+      </header>
+      <div id="conteiner"></div>
+    </main>
+  </div>
 </body>
 </html>
