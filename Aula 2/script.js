@@ -35,20 +35,31 @@ function registrarPassos(e){
 
 function moverRobo(){
   document.getElementById(posRobo).innerHTML="";
-  let [l,c]=posRobo.split(",").map(Number);
-  el=vetMovimento[pos++];
+  let [l,c] = posRobo.split(",").map(Number);
+  el = vetMovimento[pos++];
+
   switch(el){
-    case 0: c++; break;
-    case 1: c--; break;
-    case 2: l--; break;
-    case 3: l++; break;
+    case 0:
+      if(c < DIMENSAO-1) c++;
+      break;
+    case 1:
+      if(c > 0) c--;
+      break;
+    case 2:
+      if(l > 0) l--;
+      break;
+    case 3:
+      if(l < DIMENSAO-1) l++;
+      break;
   }
-  posRobo=l+","+c;
+
+  posRobo = l+","+c;
 
   if(buracos.has(posRobo)){
     gameOver("O robô caiu em um buraco e foi destruído 💥");
     return;
   }
+
   document.getElementById(posRobo).appendChild(robo);
 }
 
@@ -120,22 +131,56 @@ function iniciar() {
 function verificarFim(){
   if(posRobo==posCasa){
     const cel = document.getElementById(posCasa);
-    const casaImg = cel.querySelector("img");
-    if(casaImg){
-      casaImg.classList.add("portal");
-      addRing(cel, 900);
-      setTimeout(()=>{
-        cel.innerHTML="";
-        let r=document.createElement("img");
-        r.src="img/robo.png"; r.className="imagens celebrate";
-        cel.appendChild(r);
-      }, 1600);
-      setTimeout(()=> alert("Robô chegou em casa 🎉"), 1800);
+
+    const roboImg = cel.querySelector("img[src*='robo.png']");
+    if(roboImg){
+      roboImg.classList.add("enter-house");
     }
+
+    // depois de 1.2s coloca robo2
+    setTimeout(()=>{
+      cel.innerHTML = "";
+      let r = document.createElement("img");
+      r.src = "img/robo2.png";
+      r.className = "imagens celebrate";
+      cel.appendChild(r);
+
+      mostrarMensagemVitoria();
+      soltarFogos();
+    }, 1200);
+
   } else {
-    alert("Não chegou ao destino ❌");
+    mostrarMensagem("Não chegou ao destino ❌");
   }
 }
+
+function mostrarMensagemVitoria(){
+  let msg = document.createElement("div");
+  msg.className = "victory-msg";
+  msg.innerHTML = "🎉 O Robô chegou em casa! 🎉";
+  document.body.appendChild(msg);
+  setTimeout(()=> msg.remove(), 4000);
+}
+
+function mostrarMensagem(txt){
+  let msg = document.createElement("div");
+  msg.className = "info-msg";
+  msg.textContent = txt;
+  document.body.appendChild(msg);
+  setTimeout(()=> msg.remove(), 3000);
+}
+
+function soltarFogos(){
+  for(let i=0; i<12; i++){
+    let fogo = document.createElement("div");
+    fogo.className = "firework";
+    fogo.style.left = Math.random()*100+"vw";
+    fogo.style.top = Math.random()*60+"vh";
+    document.body.appendChild(fogo);
+    setTimeout(()=> fogo.remove(), 2500);
+  }
+}
+
 
 function addRing(cell, dur){
   const ring = document.createElement('div');
@@ -152,14 +197,15 @@ function gameOver(msg){
     roboImg.classList.add("explode");
     addRing(cel, 900);
     setTimeout(()=>{
-      alert(msg);
-      resetGame();
+      mostrarMensagem(msg);
+      setTimeout(resetGame, 1500);
     },1200);
   } else {
-    alert(msg);
-    resetGame();
+    mostrarMensagem(msg);
+    setTimeout(resetGame, 1500);
   }
 }
+
 
 function resetGame(){
   location.reload();
